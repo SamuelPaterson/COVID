@@ -13,7 +13,8 @@ WHERE continent = ''
 	AND NOT location = 'International'
 	AND NOT location = 'European Union'
 	AND location != 'World'
-GROUP BY date, location, population;
+GROUP BY date, location, population
+ORDER BY location, date;
 
 
 -- Percentage of population that contracted covid and percentage deaths for those that caught it. In europe
@@ -23,11 +24,13 @@ SELECT location, population,
 	(MAX(total_deaths)/MAX(total_cases))*100 AS percentage_deaths_percase
 FROM All_Data
 WHERE continent = 'Europe' AND total_cases>0
-GROUP BY location, population;
+GROUP BY location, population
+ORDER BY population;
 
 
 -- New cases each day vs tests conducted
 -- Used to evaluate effect of mass testing on case numbers.
 SELECT date, SUM(new_cases) AS cases_today, SUM(new_tests) AS tests_today
 FROM All_Data
-GROUP by date;
+GROUP by date
+ORDER BY date;
